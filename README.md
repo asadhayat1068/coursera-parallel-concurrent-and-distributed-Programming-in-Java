@@ -1,1 +1,2 @@
-# coursera-parallel-concurrent-and-distributed-Programming-in-Java
+# Coursera Specialization
+## Parallel Concurrent and Distributed Programming in Java
