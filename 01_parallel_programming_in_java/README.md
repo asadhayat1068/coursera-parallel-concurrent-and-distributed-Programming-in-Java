@@ -11,7 +11,8 @@ For example `async <stament 1>` causes the parent task to create a new child tas
 `async` and `finish` constructs may be arbitrary nested.  
 
 **Example:**
-*Code block from course notes @ Coursera*
+*[Code block from course notes @ Coursera](https://www.coursera.org/learn/parallel-programming-in-java/lecture/TLz5M/1-1-task-creation-and-termination-async-finish)*
+
 ```
     finish {
     async S1; // asynchronously compute sum of the lower half of the array
