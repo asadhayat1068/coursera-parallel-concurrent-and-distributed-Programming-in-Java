@@ -28,7 +28,7 @@ For example `async <stament 1>` causes the parent task to create a new child tas
 Java's Fork/Join (FJ) is a standard java framework used to implement `async` and `finish` functionality. In **FJ**, a task can be specified in compute method of a user defined class that extends the standard `RecursiveAction` class of FJ framework. 
 
 ** Example: **  
-*[Example from coursera](https://www.coursera.org/learn/parallel-programming-in-java/supplement/wlDUr/1-2-lecture-summary)*
+*[<a href="https://www.coursera.org/learn/parallel-programming-in-java/supplement/wlDUr/1-2-lecture-summary" target="_blank">Example from coursera</a>]*
 
 ```
 private static class ASum extends RecursiveAction {
@@ -54,4 +54,4 @@ FJ tasks are executed in a `ForkJoinPool`, which is a pool of java threads. This
 
 For example, `ForkJoinTask.invokeAll(left,right)` implicitly performs `fork()` operations on `left` and `right`, followed by `join()` operations on both objects.
 
-[Ref: [1.2 Lecture Summary](https://www.coursera.org/learn/parallel-programming-in-java/supplement/wlDUr/1-2-lecture-summary) ]
+[Ref: <a href="https://www.coursera.org/learn/parallel-programming-in-java/supplement/wlDUr/1-2-lecture-summary" target="_blank">1.2 Lecture Summary</a>]
