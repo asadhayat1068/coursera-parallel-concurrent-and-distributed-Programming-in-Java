@@ -70,14 +70,36 @@ For example, `ForkJoinTask.invokeAll(left,right)` implicitly performs `fork()` o
     2. **Fork Edges**, that connect the fork operation to the first step of child tasks.
     3. **Join Edges**, that connect the last step of tasks to all join operations on that task.  
 
-    CGs can be used to define data races. Data race is an important class of bugs in parallel programs. We say that a data race occurs on location `L` in a computation graph, `G`, if there exist steps `S1` and `S2` in `G` such that there is no path of directed edges from `S1` to `S2` or from `S2` to `S1` in `G`, and both `S1` and `S2` read or write `L` (*with at least one of the accesses being a write, since two parallel reads do not pose a problem*).  
+  CGs can be used to define data races. Data race is an important class of bugs in parallel programs. We say that a data race occurs on location `L` in a computation graph, `G`, if there exist steps `S1` and `S2` in `G` such that there is no path of directed edges from `S1` to `S2` or from `S2` to `S1` in `G`, and both `S1` and `S2` read or write `L` (*with at least one of the accesses being a write, since two parallel reads do not pose a problem*).  
 
-    CGs can also be used to reason about the *ideal parallelism* of a parallel program as follows:
+  CGs can also be used to reason about the *ideal parallelism* of a parallel program as follows:
 
-    * Define ***WORK(G)*** to be sum of execution times of all nodes in CG. [Total amount of work done by the program]  
-    * Define ***SPAN(G)*** to be the length of longest path in G, when adding up the execution time of all nodes in path. The longest paths are known as *critical paths*, so ***SPAN*** also represents the `critical path length (CPL)` of **G**.
+  * Define ***WORK(G)*** to be sum of execution times of all nodes in CG. [Total amount of work done by the program]  
+  * Define ***SPAN(G)*** to be the length of longest path in G, when adding up the execution time of all nodes in path. The longest paths are known as *critical paths*, so ***SPAN*** also represents the `critical path length (CPL)` of **G**.
 
-    Given above definitions of **WORK** and **SPAN**, we define the *ideal parallelism* of computation graph *G* as the ratio, ***WORK(G) / SPAN(G)***.  
-    The *ideal parallelism* is an upper limit on the speed up factor that can be obtained from parallel execution of nodes in computation graph `G`. Note that ideal parallelism is only a function of the parallel program and does not depend on the actual parallelism available in physical computer.
+  Given above definitions of **WORK** and **SPAN**, we define the *ideal parallelism* of computation graph *G* as the ratio, ***WORK(G) / SPAN(G)***.  
+  The *ideal parallelism* is an upper limit on the speed up factor that can be obtained from parallel execution of nodes in computation graph `G`. Note that ideal parallelism is only a function of the parallel program and does not depend on the actual parallelism available in physical computer.
 
     [Ref: <a href="https://www.coursera.org/learn/parallel-programming-in-java/supplement/EtCZK/1-3-lecture-summary" target="_blank">1.3 Lecture Summary</a>]
+
+***
+
+  ### 1.3 Multiprocessor Scheduling, Parallel Speedup
+
+  In this lecture, we studied the possible executions of a Computation Graph (CG) on an idealized parallel machine with P processors. It is idealized because all processors are assumed to be identical, and the execution time of a node is assumed to be fixed, regardless of which processor it executes on. A legal schedule is one that obeys the dependence constraints in the CG, such that for every directed edge (A, B), the schedule guarantees that step B is only scheduled after step A completes. Unless otherwise specified, we will restrict our attention in this course to schedules that have no unforced idleness, i.e., schedules in which a processor is not permitted to be idle if a CG node is available to be scheduled on it. Such schedules are also referred to as "greedy" schedules.
+
+  Let  
+  `T_p` = Execution Time of `CG` on `p` processors,  
+  then  
+  `T_inf =< T_p =< T_1`  
+  Also  
+  `T_inf = Span`  
+  `T_1 = Work`   
+
+  We also saw examples for which there could be different values of `T_p` for different schedules of the same `CG` on `p` processors.
+
+We then defined the parallel speedup for a given schedule of a `CG` on `P` processors as  
+`Speedup(P) = T_1/T_p`  
+​	
+ , and observed that `Speedup(P) must be ≤ the number of processors P` , and also `≤` the `ideal parallelism, WORK/SPAN.`
+
