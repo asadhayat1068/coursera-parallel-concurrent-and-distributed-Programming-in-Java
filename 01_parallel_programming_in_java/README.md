@@ -84,7 +84,7 @@ For example, `ForkJoinTask.invokeAll(left,right)` implicitly performs `fork()` o
 
 ***
 
-  ### 1.3 Multiprocessor Scheduling, Parallel Speedup
+  ### 1.4 Multiprocessor Scheduling, Parallel Speedup
 
   In this lecture, we studied the possible executions of a Computation Graph (CG) on an idealized parallel machine with P processors. It is idealized because all processors are assumed to be identical, and the execution time of a node is assumed to be fixed, regardless of which processor it executes on. A legal schedule is one that obeys the dependence constraints in the CG, such that for every directed edge (A, B), the schedule guarantees that step B is only scheduled after step A completes. Unless otherwise specified, we will restrict our attention in this course to schedules that have no unforced idleness, i.e., schedules in which a processor is not permitted to be idle if a CG node is available to be scheduled on it. Such schedules are also referred to as "greedy" schedules.
 
