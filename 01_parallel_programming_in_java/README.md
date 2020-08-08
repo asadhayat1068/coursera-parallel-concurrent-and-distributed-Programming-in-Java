@@ -55,3 +55,29 @@ FJ tasks are executed in a `ForkJoinPool`, which is a pool of java threads. This
 For example, `ForkJoinTask.invokeAll(left,right)` implicitly performs `fork()` operations on `left` and `right`, followed by `join()` operations on both objects.
 
 [Ref: <a href="https://www.coursera.org/learn/parallel-programming-in-java/supplement/wlDUr/1-2-lecture-summary" target="_blank">1.2 Lecture Summary</a>]
+
+***
+
+### 1.3 Computation Graphs, Work, Span
+* #### Computational Graph  
+  Computational Graph (CG) models the execution of a parallel program as a partially ordered set.  
+  Specifically a CG consists of:  
+  1. **A set of vertices or node**, in which each node represents a step consisting of an arbitraty sequential computation.  
+  2. **A set directed edges**, that represent ordering constraints among group.
+
+  For Fork-Join programs, it is useful to partition the edges into three cases:  
+    1. **Continue Edges**, that capture sequencing of steps within a task.
+    2. **Fork Edges**, that connect the fork operation to the first step of child tasks.
+    3. **Join Edges**, that connect the last step of tasks to all join operations on that task.  
+
+    CGs can be used to define data races. Data race is an important class of bugs in parallel programs. We say that a data race occurs on location `L` in a computation graph, `G`, if there exist steps `S1` and `S2` in `G` such that there is no path of directed edges from `S1` to `S2` or from `S2` to `S1` in `G`, and both `S1` and `S2` read or write `L` (*with at least one of the accesses being a write, since two parallel reads do not pose a problem*).  
+
+    CGs can also be used to reason about the *ideal parallelism* of a parallel program as follows:
+
+    * Define ***WORK(G)*** to be sum of execution times of all nodes in CG. [Total amount of work done by the program]  
+    * Define ***SPAN(G)*** to be the length of longest path in G, when adding up the execution time of all nodes in path. The longest paths are known as *critical paths*, so ***SPAN*** also represents the `critical path length (CPL)` of **G**.
+
+    Given above definitions of **WORK** and **SPAN**, we define the *ideal parallelism* of computation graph *G* as the ratio, ***WORK(G) / SPAN(G)***.  
+    The *ideal parallelism* is an upper limit on the speed up factor that can be obtained from parallel execution of nodes in computation graph `G`. Note that ideal parallelism is only a function of the parallel program and does not depend on the actual parallelism available in physical computer.
+
+    [Ref: <a href="https://www.coursera.org/learn/parallel-programming-in-java/supplement/EtCZK/1-3-lecture-summary" target="_blank">1.3 Lecture Summary</a>]
