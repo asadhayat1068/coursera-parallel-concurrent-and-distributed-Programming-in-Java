@@ -103,3 +103,20 @@ We then defined the parallel speedup for a given schedule of a `CG` on `P` proce
 ​	
  , and observed that `Speedup(P) must be ≤ the number of processors P` , and also `≤` the `ideal parallelism, WORK/SPAN.`
 
+
+***
+
+  ### 1.5 AMDAHL'S LAW
+This lecture discusses a simple observtion made by Gene Amdahl in 1967. It states that, if `q <= 1` is the fraction of **WORK** in a parallel program that must be executed sequentially, then the best speedup that can be obtained for that program, for any number of processors, P, is:  
+`Speedup(P) <= 1/q`  
+
+As observed earlier,  
+`T_p =` Execution Time of `CG` on `p` processors, and  
+`T_p >= SPAN(G)`  
+Now, if fraction `q` of `WORK(G)` is sequential, then it must be the case that `SPAN(G) >= q x WORK(G)`. Therefore,
+ 
+`Speedup(P) = T_1/T_p must be <= Work(G)/(qxWork(G)) = 1/q` since `T_1 = WORK(G)` for greedy schedulers.
+
+Amdahl’s Law reminds us to watch out for sequential bottlenecks both when designing parallel algorithms and when implementing programs on real machines. As an example, if q = 10%, then Amdahl's Law reminds us that the best possible speedup must be ≤ 10 (which equals 1/q ), regardless of the number of processors available.
+
+[Ref: <a href="https://www.coursera.org/learn/parallel-programming-in-java/supplement/PU294/1-5-lecture-summary" target="_blank">1.5 Ahmadhl's Law</a>]
